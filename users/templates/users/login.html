@@ -7,10 +7,10 @@
             <div>
                 {{form.as_p}}
             </div>
-            <button type="submit">Sign Up</button>
+            <button type="submit">Sign In</button>
         </form>
     </div>
     <div>
-        Already Signed Up? <a href="{% url 'login' %}">Sign In</a>
+        Haven't signed up yet? <a href="{% url 'register' %}">Sign Up</a>
     </div>
 {% endblock content %}
