@@ -12,6 +12,7 @@ from .models import Photo
 
 class PhotoListView(ListView):
     model = Photo
+    paginate_by = 5
 
 
 class PhotoDetailView(DetailView):
