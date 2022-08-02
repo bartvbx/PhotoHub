@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <div>
+            <img src="{{ object.author.profile.image.url }}">
+            <a href="#">{{ object.author }}</a>
+            <small>{{ object.created|date:"F d, Y" }}</small>
+        </div>
+        {% if object.author == user %}
+            <div>
+                <a href="{% url 'photo-update' object.id %}">Update</a>
+                <a href="{% url 'photo-delete' object.id %}">Delete</a>
+            </div>
+        {% endif %}
+        <div>
+            <h2>{{ object.title }}</h2>
+            {{ object.category }}
+            {{ object.description }}
+            <br>
+            <img src="{{ object.image.url }}">
+        </div>
+    </div>
+{% endblock content %}

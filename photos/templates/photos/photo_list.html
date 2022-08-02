@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for object in object_list %}
+        <div>
+            <div>
+                <img src="{{ object.author.profile.image.url }}">
+                <a href="#">{{ object.author }}</a>
+                <small>{{ object.created|date:"F d, Y" }}</small>
+            </div>
+            <div>
+                <h2><a href="{% url 'photo-detail' object.id %}">{{ object.title }}</a></h2>
+                <a href="{% url 'photo-detail' object.id %}"><img src="{{ object.image.url }}"></a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock content %}

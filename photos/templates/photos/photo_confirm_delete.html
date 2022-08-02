@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <div>
+                <h3>Are you sure you want to delet photo {{ object.title }}</h3>
+            </div>
+            <button type="submit">Delete</button>
+            <a href="{% url 'photo-detail' object.id %}">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}
