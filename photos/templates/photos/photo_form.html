@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <div>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
-                {{form.as_p}}
+                {{ form|crispy }}
             </div>
             <button type="submit">Add Photo</button>
         </form>
