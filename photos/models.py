@@ -27,3 +27,16 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse('photo-detail', kwargs={'pk': self.pk})
+
+
+class Comment(models.Model):
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField(blank=False)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+
+    def __str__(self):
+            return f'{self.content}'

@@ -1,13 +1,18 @@
-from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponseForbidden
+from django.urls import reverse
+from django.views import View
 from django.views.generic import (
     ListView,
     DetailView,
     CreateView,
     UpdateView,
-    DeleteView
+    DeleteView,
+    FormView
 )
+from django.views.generic.detail import SingleObjectMixin
 from .models import Photo
+from .forms import CommentForm
 
 
 class PhotoListView(ListView):
@@ -15,8 +20,40 @@ class PhotoListView(ListView):
     paginate_by = 5
 
 
-class PhotoDetailView(DetailView):
+class PhotoDisplay(DetailView):
     model = Photo
+    template_name = 'photos/photo_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
+
+
+class PhotoComment(SingleObjectMixin, FormView):
+    template_name = 'photos/photo_detail.html'
+    form_class = CommentForm
+    model = Photo
+
+
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse('photo-detail', kwargs={'pk': self.object.pk})
+
+
+class PhotoDetailView(View):
+    def get(self, request, *args, **kwargs):
+        view = PhotoDisplay.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = PhotoComment.as_view()
+        return view(request, *args, **kwargs)
 
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):

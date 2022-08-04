@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load crispy_forms_tags %}
 {% block content %}
     <div>
         <div>
@@ -19,6 +19,26 @@
             {{ object.description }}
             <br>
             <img src="{{ object.image.url }}">
+        </div>
+        <hr>
+        <div>
+            Comments:
+            <br>
+            {% for comment in object.comment_set.all %}
+                {{ comment.created }} commented by {{ comment.author }}
+                <br>
+                {{ comment.content }}
+                <br>
+            {% empty %}
+                There are no comments yet, add the first one!
+            {% endfor %}
+            <div>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock content %}
