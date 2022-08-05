@@ -35,18 +35,24 @@ class PhotoComment(SingleObjectMixin, FormView):
     form_class = CommentForm
     model = Photo
 
-
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
 
+    def form_valid(self, form):
+        form.instance.photo = self.object
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('photo-detail', kwargs={'pk': self.object.pk})
 
 
 class PhotoDetailView(View):
+
     def get(self, request, *args, **kwargs):
         view = PhotoDisplay.as_view()
         return view(request, *args, **kwargs)
