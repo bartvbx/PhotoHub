@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 from django.views import View
@@ -11,13 +12,31 @@ from django.views.generic import (
     FormView
 )
 from django.views.generic.detail import SingleObjectMixin
-from .models import Photo
+from .models import Photo, Category
 from .forms import CommentForm
 
 
 class PhotoListView(ListView):
     model = Photo
     paginate_by = 5
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            object_list = self.model.objects.filter(
+                Q(title__icontains=query) |
+                Q(description__icontains=query) |
+                Q(author__username__icontains=query) |
+                Q(category__name__icontains=query)
+            )
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        return context
 
 
 class PhotoDisplay(DetailView):
