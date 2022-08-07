@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div>
+        <div>
+            <img src="{{ object.profile.image.url }}">
+            <div>{{ object.username }}</div>
+        </div>
+        {% if object.pk == user.pk %}
+            <div>
+                <a href="{% url 'user-settings' %}">Profile settings</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

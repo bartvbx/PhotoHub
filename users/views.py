@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views.generic import ListView, DetailView
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+# from .models import Profile
+from django.contrib.auth.models import User
 
 
 def register(request):
@@ -20,7 +23,7 @@ def register(request):
 
 
 @login_required
-def profile(request):
+def user_settings(request):
     if request.method == "POST":
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
@@ -28,7 +31,7 @@ def profile(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'You successfully update your profile info!')
-            return redirect('profile')
+            return redirect('user-settings')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
@@ -37,4 +40,24 @@ def profile(request):
         'u_form' : u_form,
         'p_form' : p_form
     }
-    return render(request, 'users/profile.html', context)
+    return render(request, 'users/user_settings.html', context)
+
+
+class UserListView(ListView):
+    model = User
+    paginate_by = 5
+    template_name = 'users/user_list.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query:
+            object_list = self.model.objects.filter(username__icontains=query)
+        else:
+            object_list = self.model.objects.all()
+        return object_list
+
+
+class UserDetalView(DetailView):
+    model = User
+    template_name = 'users/user_detail.html'
+
