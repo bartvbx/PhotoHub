@@ -2,21 +2,22 @@
 
 {% block content %}
     <div>
-        <form method='GET'>
-            <input type='text' name='q' value='{{ request.GET.q }}'>
-            <input class="button" type='submit' value="Search Photos">
-          </form>
+        <h3>Future sidebar</h3>
+        <form method="get">
+            {{ filter.form.as_p }}
+            <input type="submit" value="Search Photos"/>
+        </form>
     </div>
-    {% for category in category_list %}
+    <!-- {% for category in category_list %}
         <div>
-            <a href="{% url 'photo-list' %}?q={{category.name}}">{{category.name}}</a>
+            <a href="{% url 'photo-list' %}?category={{category.name}}">{{category.name}}</a>
         </div>
-    {% endfor %}
+    {% endfor %} -->
     {% for object in object_list %}
         <div>
             <div>
                 <img src="{{ object.author.profile.image.url }}">
-                <a href="#">{{ object.author }}</a>
+                <a href="{% url 'user-details' object.author.id %}">{{ object.author }}</a>
                 <small>{{ object.created|date:"F d, Y" }}</small>
             </div>
             <div>

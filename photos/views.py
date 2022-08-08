@@ -12,8 +12,9 @@ from django.views.generic import (
     FormView
 )
 from django.views.generic.detail import SingleObjectMixin
-from .models import Photo, Category
+from .filters import PhotoFilter
 from .forms import CommentForm
+from .models import Photo, Category
 
 
 class PhotoListView(ListView):
@@ -21,21 +22,16 @@ class PhotoListView(ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query:
-            object_list = self.model.objects.filter(
-                Q(title__icontains=query) |
-                Q(description__icontains=query) |
-                Q(author__username__icontains=query) |
-                Q(category__name__icontains=query)
-            )
-        else:
-            object_list = self.model.objects.all()
-        return object_list
+        queryset = super().get_queryset()
+        filter = PhotoFilter(self.request.GET, queryset)
+        return filter.qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
+        queryset = self.get_queryset()
+        filter = PhotoFilter(self.request.GET, queryset)
+        context["filter"] = filter
         return context
 
 

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'photos.apps.PhotosConfig',
     "crispy_forms",
     "crispy_bootstrap5",
+    'django_filters',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
