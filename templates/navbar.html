@@ -18,12 +18,18 @@
                     <li class="nav-item"></li>
                         <a class="nav-link" href="{% url 'photo-create' %}">Add Photo</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user-settings' %}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ user.profile.image.url }}" class="rounded-circle" height="25">
+                            My account
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <li><a class="dropdown-item" href="{% url 'user-details' user.pk %}">Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'user-settings' %}">Settings</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        </ul>
+                      </li>
                 {% else %}
                     <li class="nav-item"></li>
                         <a class="nav-link" href="{% url 'login' %}">Login</a>

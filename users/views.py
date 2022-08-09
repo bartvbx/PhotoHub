@@ -42,6 +42,13 @@ def user_settings(request):
     }
     return render(request, 'users/user_settings.html', context)
 
+@login_required()
+def delete_profile_picture(request):
+    if request.user.profile.image != 'default.jpg':
+        request.user.profile.set_default_image()
+        messages.success(request, f'You successfully change your profile picture to default!')
+    return redirect('user-settings')
+
 
 class UserListView(ListView):
     model = User
