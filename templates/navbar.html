@@ -25,6 +25,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           <li><a class="dropdown-item" href="{% url 'user-details' user.pk %}">Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'photo-liked-list' %}">Liked photos</a></li>
                           <li><a class="dropdown-item" href="{% url 'user-settings' %}">Settings</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>

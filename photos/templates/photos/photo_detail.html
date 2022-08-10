@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load photo_extras %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div>
@@ -19,6 +20,22 @@
             {{ object.description }}
             <br>
             <img src="{{ object.image.url }}">
+        </div>
+        <div>
+            {{ object.total_likes }} likes
+            {% photo_liked_by_user object.id user.id as is_liked %}
+            <br>
+            {% if is_liked %}
+            <form action="{% url 'photo-like' object.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="photo_id" value="{{ object.id }}">Dislike</button>
+            </form>
+            {% else %}
+            <form action="{% url 'photo-like' object.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" name="photo_id" value="{{ object.id }}">Like</button>
+            </form>
+            {% endif %}
         </div>
         <hr>
         <div>

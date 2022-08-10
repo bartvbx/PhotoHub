@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -18,6 +17,7 @@ class Photo(models.Model):
     description = models.TextField(blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='liked_photos')
     
     class Meta:
         ordering = ['-created']
@@ -27,6 +27,9 @@ class Photo(models.Model):
 
     def get_absolute_url(self):
         return reverse('photo-detail', kwargs={'pk': self.pk})
+
+    def total_likes(self):
+        return self.likes.count()
 
 
 class Comment(models.Model):

@@ -1,6 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import Q
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import (
@@ -110,3 +111,18 @@ class PhotoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == photo.author:
             return True
         return False
+
+def like_photo(request, pk):
+    photo = get_object_or_404(Photo, id=request.POST.get('photo_id'))
+    if photo.likes.filter(id=request.user.id).exists():
+        photo.likes.remove(request.user)
+    else:
+        photo.likes.add(request.user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def liked_photo_list(request):
+    object_list = request.user.liked_photos.all()
+    context = {'object_list' : object_list}
+    return render(request, 'photos/liked_photo_list.html', context)
