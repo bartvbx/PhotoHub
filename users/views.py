@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
-# from .models import Profile
 from django.contrib.auth.models import User
 
 
@@ -66,5 +66,14 @@ class UserListView(ListView):
 
 class UserDetalView(DetailView):
     model = User
+    context_object_name = 'object'
     template_name = 'users/user_detail.html'
 
+
+def follow_user(request, pk):
+    user = get_object_or_404(User, id=request.POST.get('user_id'))
+    if user.profile.follows.filter(id=request.user.id).exists():
+        user.profile.follows.remove(request.user.profile)
+    else:
+        user.profile.follows.add(request.user.profile)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

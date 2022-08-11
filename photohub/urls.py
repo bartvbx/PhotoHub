@@ -29,6 +29,7 @@ urlpatterns = [
     path('delete-profile-picture', user_views.delete_profile_picture, name='delete_profile_picture'),
     path('users/', user_views.UserListView.as_view(), name='user-list'),
     path('users/<int:pk>/', user_views.UserDetalView.as_view(), name='user-details'),
+    path('users/<int:pk>/follow/', user_views.follow_user, name='user-follow'),
     path('', include('photos.urls')),
 ]
 

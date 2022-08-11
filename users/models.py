@@ -11,6 +11,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(blank=True)
     image = models.ImageField(default='default.jpg', upload_to=rename_profile_pic)
+    follows = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='followers')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -29,3 +30,9 @@ class Profile(models.Model):
         self.user.profile.image.delete(save=False)
         self.user.profile.image = 'default.jpg'
         self.user.profile.save()
+
+    def count_followers(self):
+        return self.follows.count()
+    
+    def count_following(self):
+        return Profile.objects.filter(follows=self).count()
