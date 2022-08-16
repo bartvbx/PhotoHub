@@ -8,28 +8,28 @@
             <div>
                 <div>
                     <img src="{{ object.author.profile.image.url }}">
-                    <a href="{% url 'user-details' object.author.id %}">{{ object.author }}</a>
+                    <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a>
                     <small>{{ object.created|date:"F d, Y" }}</small>
                 </div>
                 <div>
-                    <h2><a href="{% url 'photo-detail' object.id %}">{{ object.title }}</a></h2>
+                    <h2><a href="{% url 'photo_detail' object.id %}">{{ object.title }}</a></h2>
                     <div>
                         {{ object.total_likes }} likes
                         {% photo_liked_by_user object.id user.id as is_liked %}
                         <br>
                         {% if is_liked %}
-                        <form action="{% url 'photo-like' object.id %}" method="POST">
+                        <form action="{% url 'photo_like' object.id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" name="photo_id" value="{{ object.id }}">Dislike</button>
                         </form>
                         {% else %}
-                        <form action="{% url 'photo-like' object.id %}" method="POST">
+                        <form action="{% url 'photo_like' object.id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" name="photo_id" value="{{ object.id }}">Like</button>
                         </form>
                         {% endif %}
                     </div>
-                    <a href="{% url 'photo-detail' object.id %}"><img src="{{ object.image.url }}"></a>
+                    <a href="{% url 'photo_detail' object.id %}"><img src="{{ object.image.url }}"></a>
                 </div>
             </div>
         {% endfor %}

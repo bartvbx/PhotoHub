@@ -11,7 +11,7 @@
         <div>
             <div>
                 <img src="{{ object.profile.image.url }}">
-                <a href="{% url 'user-details' object.pk %}">{{ object.username }}</a>
+                <a href="{% url 'user_details' object.pk %}">{{ object.username }}</a>
             </div>
         </div>
     {% endfor %}

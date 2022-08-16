@@ -31,7 +31,7 @@ def user_settings(request):
             u_form.save()
             p_form.save()
             messages.success(request, f'You successfully update your profile info!')
-            return redirect('user-settings')
+            return redirect('user_settings')
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
@@ -47,7 +47,7 @@ def delete_profile_picture(request):
     if request.user.profile.image != 'default.jpg':
         request.user.profile.set_default_image()
         messages.success(request, f'You successfully change your profile picture to default!')
-    return redirect('user-settings')
+    return redirect('user_settings')
 
 
 class UserListView(ListView):

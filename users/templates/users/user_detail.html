@@ -15,12 +15,12 @@
                 {% user_followed_by_user object.id user.id as followed %}
                 <br>
                 {% if followed %}
-                <form action="{% url 'user-follow' object.id %}" method="POST">
+                <form action="{% url 'user_follow' object.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" name="user_id" value="{{ object.id }}">Unfollow</button>
                 </form>
                 {% else %}
-                <form action="{% url 'user-follow' object.id %}" method="POST">
+                <form action="{% url 'user_follow' object.id %}" method="POST">
                     {% csrf_token %}
                     <button type="submit" name="user_id" value="{{ object.id }}">Follow</button>
                 </form>

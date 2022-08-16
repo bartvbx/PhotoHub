@@ -1,22 +1,22 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'photo-list' %}">PhotoHub</a>
+        <a class="navbar-brand" href="{% url 'photo_list' %}">PhotoHub</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'photo-list' %}">Photos</a>
+                    <a class="nav-link" href="{% url 'photo_list' %}">Photos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user-list' %}">Users</a>
+                    <a class="nav-link" href="{% url 'user_list' %}">Users</a>
                 </li>
             </ul>
                 <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item"></li>
-                        <a class="nav-link" href="{% url 'photo-create' %}">Add Photo</a>
+                        <a class="nav-link" href="{% url 'photo_create' %}">Add Photo</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -24,9 +24,9 @@
                             My account
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <li><a class="dropdown-item" href="{% url 'user-details' user.pk %}">Profile</a></li>
-                          <li><a class="dropdown-item" href="{% url 'photo-liked-list' %}">Liked photos</a></li>
-                          <li><a class="dropdown-item" href="{% url 'user-settings' %}">Settings</a></li>
+                          <li><a class="dropdown-item" href="{% url 'user_details' user.pk %}">Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'photo_liked_list' %}">Liked photos</a></li>
+                          <li><a class="dropdown-item" href="{% url 'user_settings' %}">Settings</a></li>
                           <li><hr class="dropdown-divider"></li>
                           <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                         </ul>
