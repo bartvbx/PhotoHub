@@ -5,7 +5,8 @@
         <form method='GET'>
             <input type='text' name='q' value='{{ request.GET.q }}'>
             <input class="button" type='submit' value="Search Users">
-          </form>
+        </form>
+        <a class="btn btn-warning" href="{% url 'user_list' %}">Clear filter</a>
     </div>
     {% for object in object_list %}
         <div>

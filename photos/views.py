@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -46,10 +48,11 @@ class PhotoDisplay(DetailView):
         return context
 
 
-class PhotoComment(SingleObjectMixin, FormView):
+class PhotoComment(SingleObjectMixin, SuccessMessageMixin, FormView):
     template_name = 'photos/photo_detail.html'
     form_class = CommentForm
     model = Photo
+    success_message = "You added new comment!"
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -78,18 +81,20 @@ class PhotoDetailView(View):
         return view(request, *args, **kwargs)
 
 
-class PhotoCreateView(LoginRequiredMixin, CreateView):
+class PhotoCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Photo
     fields = ['image', 'title', 'category', 'description']
+    success_message = "Photo was added successfully!"
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
 
-class PhotoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class PhotoUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
     model = Photo
     fields = ['title', 'category', 'description']
+    success_message = "Your photo was updated successfully!"
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -102,9 +107,10 @@ class PhotoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return False
 
 
-class PhotoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PhotoDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = Photo
     success_url = '/'
+    success_message = "Photo was deleted successfully!"
 
     def test_func(self):
         photo = self.get_object()
@@ -112,12 +118,18 @@ class PhotoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+
+@login_required
 def like_photo(request, pk):
     photo = get_object_or_404(Photo, id=request.POST.get('photo_id'))
-    if photo.likes.filter(id=request.user.id).exists():
+    if request.user == photo.author:
+        messages.warning(request, f'You can\'t like your own photo!')
+    elif photo.likes.filter(id=request.user.id).exists():
         photo.likes.remove(request.user)
+        messages.success(request, f'You disliked photo "{photo.title}" by {photo.author}!')
     else:
         photo.likes.add(request.user)
+        messages.success(request, f'You liked photo "{photo.title}" by {photo.author}!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

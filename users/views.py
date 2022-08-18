@@ -30,7 +30,7 @@ def user_settings(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f'You successfully update your profile info!')
+            messages.success(request, f'You successfully updated your profile info!')
             return redirect('user_settings')
     else:
         u_form = UserUpdateForm(instance=request.user)
@@ -42,11 +42,12 @@ def user_settings(request):
     }
     return render(request, 'users/user_settings.html', context)
 
-@login_required()
+
+@login_required
 def delete_profile_picture(request):
     if request.user.profile.image != 'default.jpg':
         request.user.profile.set_default_image()
-        messages.success(request, f'You successfully change your profile picture to default!')
+        messages.success(request, f'You changed your profile picture to default!')
     return redirect('user_settings')
 
 
@@ -70,10 +71,15 @@ class UserDetalView(DetailView):
     template_name = 'users/user_detail.html'
 
 
+@login_required
 def follow_user(request, pk):
     user = get_object_or_404(User, id=request.POST.get('user_id'))
-    if user.profile.follows.filter(id=request.user.id).exists():
+    if request.user == user:
+        messages.warning(request, f'You can\'t follow yourself!')
+    elif user.profile.follows.filter(id=request.user.id).exists():
         user.profile.follows.remove(request.user.profile)
+        messages.success(request, f'You are no longer following {user}!')
     else:
         user.profile.follows.add(request.user.profile)
+        messages.success(request, f'You are following {user}!')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

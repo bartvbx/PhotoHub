@@ -6,6 +6,7 @@
         <form method="get">
             {{ filter.form.as_p }}
             <input type="submit" value="Search Photos"/>
+            <a class="btn btn-warning" href="{% url 'photo_list' %}">Clear filters</a>
         </form>
     </div>
     {% for object in object_list %}

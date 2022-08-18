@@ -26,7 +26,7 @@ class Photo(models.Model):
             return f'{self.title} by {self.author}'
 
     def get_absolute_url(self):
-        return reverse('photo-detail', kwargs={'pk': self.pk})
+        return reverse('photo_detail', kwargs={'pk': self.pk})
 
     def total_likes(self):
         return self.likes.count()
