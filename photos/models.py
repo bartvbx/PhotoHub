@@ -1,8 +1,10 @@
-from django.db import models
+import os
+
 from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-import os
+
 from .validators import file_size_validator
 
 
@@ -22,10 +24,10 @@ class Photo(models.Model):
     image = models.ImageField(upload_to=rename_uploaded_photo, validators=[file_size_validator])
     title = models.CharField(max_length=70, blank=False, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    description = models.TextField(blank=True)
+    description = models.TextField(max_length=400, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, related_name='liked_photos')
+    likes = models.ManyToManyField(User, related_name='liked_photos', blank=True)
     slug = models.SlugField(max_length=70, blank=True)
     
     class Meta:
@@ -48,7 +50,7 @@ class Photo(models.Model):
 class Comment(models.Model):
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField(blank=False)
+    content = models.TextField(max_length=400, blank=False)
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:

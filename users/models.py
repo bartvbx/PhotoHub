@@ -1,7 +1,10 @@
-from django.db import models
-from django.contrib.auth.models import User
-from PIL import Image
 import os
+
+from PIL import Image
+
+from django.contrib.auth.models import User
+from django.db import models
+
 from photos.validators import file_size_validator
 
 
@@ -12,7 +15,7 @@ def rename_profile_pic(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(blank=True)
+    bio = models.TextField(max_length=400, blank=True)
     image = models.ImageField(default='default.jpg', upload_to=rename_profile_pic, validators=[file_size_validator])
     follows = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='followers')
 
