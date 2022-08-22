@@ -1,0 +1,130 @@
+footer {
+    color: white;
+    padding: 0.7rem;
+}
+
+footer a {
+    color: white;
+}
+
+footer a:hover {
+    color: white;
+}
+
+#main-photo-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.main-photo {
+    width: 60%;
+}
+
+.main-photo-details-title {
+    font-weight: 600;
+}
+
+.main-photo-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.main-photo-img {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.main-photo-img, .main-photo-details-left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.main-photo-details-right {
+    text-align: center;
+}
+
+.main-photo-details a {
+    display: block;
+    color: black;
+}
+
+.main-photo-details-profilepic {
+    height: 100px;
+    width: 100px;
+    margin: 0.5rem;
+    border-radius: 50%;
+}
+
+.fixed-height {
+    min-height: calc(100vh - 40px);
+}
+
+.img-fluid {
+    border-radius: 5px;
+}
+
+.paginator {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.paginator-page {
+    background-color: #212529;
+    border-radius: 50%;
+    color: white;
+    padding: 0.5rem 0.9rem;
+    text-decoration: none;
+}
+
+.paginator-page:hover {
+    color: white;
+    background-color: #4b525a;
+}
+
+.photo-search {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+    margin: 0.5rem;
+    margin-top: 1rem;
+}
+
+.photo-search-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: flex-start;
+}
+
+.photo-search-form-input {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    height: 31px;
+}
+
+select.photo-search-form-input {
+    width: 130px;
+}
+
+.btn-dark {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}

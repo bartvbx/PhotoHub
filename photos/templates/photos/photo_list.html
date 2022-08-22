@@ -1,58 +1,75 @@
 {% extends 'base.html' %}
 {% load photo_extras %}
+{% block title %}PhotoHub - Photos {% endblock title %}
 {% block content %}
-    <div>
-        <h3>Future sidebar</h3>
-        <form method="get">
-            {{ filter.form.as_p }}
-            <input type="submit" value="Search Photos"/>
-            <a class="btn btn-warning" href="{% url 'photo_list' %}">Clear filters</a>
+    <div class="photo-search">
+        <form class="photo-search-form" method="get">
+            {{ filter.form.category }}
+            {{ filter.form.author }}
+            {{ filter.form.q }}
+            <input class="btn btn-dark btn-sm" type="submit" value="Search Photos"/>
+            <a class="btn btn-dark btn-sm" href="{% url 'photo_list' %}">Clear filters</a>
         </form>
     </div>
-    {% for object in object_list %}
-        <div>
-            <div>
-                <img src="{{ object.author.profile.image.url }}">
-                <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a>
-                <small>{{ object.created|date:"F d, Y" }}</small>
-            </div>
-            <div>
-                <h2><a href="{% url 'photo_detail' object.id %}">{{ object.title }}</a></h2>
-                <div>
-                    {{ object.total_likes }} likes
-                    {% photo_liked_by_user object.id user.id as is_liked %}
-                    <br>
-                    {% if is_liked %}
-                    <form action="{% url 'photo_like' object.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" name="photo_id" value="{{ object.id }}">Dislike</button>
-                    </form>
-                    {% else %}
-                    <form action="{% url 'photo_like' object.id %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" name="photo_id" value="{{ object.id }}">Like</button>
-                    </form>
-                    {% endif %}
+    <div id="main-photo-list">
+        {% for object in object_list %}
+            <article class="main-photo">
+                <div class="main-photo-details">
+                    <div class="main-photo-details-left">
+                        <img class="main-photo-details-profilepic" src="{{ object.author.profile.image.url }}">
+                        <div>
+                            <a class="main-photo-details-title" href="{% url 'photo_detail' object.id %}">{{ object.title }}</a>
+                            <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a>
+                            <small>{{ object.created|date:"F d, Y" }}</small>
+                        </div>
+                    </div>
+                    <div class="main-photo-details-right">
+                        {% photo_liked_by_user object.id user.id as is_liked %}
+                        {% if is_liked %}
+                        <form action="{% url 'photo_like' object.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="photo_id" value="{{ object.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                </svg>
+                            </button>
+                        </form>
+                        {% else %}
+                        <form action="{% url 'photo_like' object.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="photo_id" value="{{ object.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                            </button>
+                        </form>
+                        {% endif %}
+                        <p>{{ object.total_likes }} likes</p>
+                    </div>
                 </div>
-                <a href="{% url 'photo_detail' object.id %}"><img src="{{ object.image.url }}"></a>
-            </div>
-        </div>
-    {% endfor %}
-    {% if is_paginated %}
-        {% if page_obj.has_previous %}
-            <a href="?page=1">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num > page_obj.number|add:'-3' %}
-                <a href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
+                <div class="main-photo-img">
+                    <a href="{% url 'photo_detail' object.id %}"><img class="img-fluid" src="{{ object.image.url }}"></a>
+                </div>
+            </article>
         {% endfor %}
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    </div>
+    <div class="paginator">
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a class="paginator-page" href="?page=1">&lt;&lt;</a>
+                <a class="paginator-page" href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="paginator-page" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num > page_obj.number|add:'-3' %}
+                    <a class="paginator-page" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a class="paginator-page" href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                <a class="paginator-page" href="?page={{ page_obj.paginator.num_pages }}">&gt;&gt;</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
 {% endblock content %}
