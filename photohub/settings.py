@@ -32,17 +32,21 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
-    'photos.apps.PhotosConfig',
-    "crispy_forms",
-    "crispy_bootstrap5",
-    'django_filters',
+    # DJANGO_APPS
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # THIRD_PARTY_APPS
+    "crispy_forms",
+    "crispy_bootstrap5",
+    'django_filters',
+    'django_cleanup.apps.CleanupConfig',
+    # LOCAL_APPS
+    'users.apps.UsersConfig',
+    'photos.apps.PhotosConfig',
 ]
 
 MIDDLEWARE = [
