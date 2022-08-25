@@ -9,8 +9,21 @@
             <div>{{ object.profile.bio }}</div>
         </div>
         <div>
-            {{ object.profile.count_followers }} followers
+            {{ object.profile.count_followers }} follower(s)
             {{ object.profile.count_following }} following
+            {{ object.profile.count_photos }} photo(s) uploaded
+            <div>
+                Followers list:
+                {% for follower in  object.profile.follows.all %}
+                    <a href="{% url 'user_details' follower.pk %}">{{follower.user}}</a>
+                {% endfor %}
+            </div>
+            <div>
+                Following list:
+                {% for followed in  object.profile.followers.all %}
+                    <a href="{% url 'user_details' followed.pk %}">{{followed.user}}</a>
+                {% endfor %}
+            </div>
             {% if object.id != user.id %}
                 {% user_followed_by_user object.id user.id as followed %}
                 <br>
@@ -26,6 +39,14 @@
                 </form>
                 {% endif %}
             {% endif %}
+        </div>
+        <div>
+            {% for photo in photo_list %}
+                {{photo.title}}
+                <img src="{{ photo.image.url }}">
+                <br>
+            {% endfor %}
+            <a href="{% url 'photo_list' %}?author={{object.pk}}">Display all {{object.username }} photos</a>
         </div>
     </div>
 {% endblock content %}

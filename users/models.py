@@ -5,6 +5,7 @@ from PIL import Image
 from django.contrib.auth.models import User
 from django.db import models
 
+from photos.models import Photo
 from photos.validators import file_size_validator
 
 
@@ -42,3 +43,6 @@ class Profile(models.Model):
     
     def count_following(self):
         return Profile.objects.filter(follows=self).count()
+
+    def count_photos(self):
+        return Photo.objects.filter(author=self.user).count()

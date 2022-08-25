@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
+from photos.models import Photo
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 
@@ -80,6 +81,11 @@ class UserDetalView(DetailView):
     model = User
     context_object_name = 'object'
     template_name = 'users/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        context['photo_list'] = Photo.objects.filter(author=self.object).all()[:3]
+        return context
 
 
 @login_required
