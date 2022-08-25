@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.views.generic import ListView, DetailView
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView
+
+from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 
 def register(request):
@@ -25,20 +28,28 @@ def register(request):
 @login_required
 def user_settings(request):
     if request.method == "POST":
-        u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        password_form = PasswordChangeForm(request.user, request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
             messages.success(request, f'You successfully updated your profile info!')
             return redirect('user_settings')
+        elif password_form.is_valid():
+            password_form.save()
+            update_session_auth_hash(request, password_form.user)
+            messages.success(request, f'Your password has been changed!')
+            return redirect('user_settings')
     else:
-        u_form = UserUpdateForm(instance=request.user)
-        p_form = ProfileUpdateForm(instance=request.user.profile)
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+        password_form = PasswordChangeForm(user=request.user)
 
     context = {
-        'u_form' : u_form,
-        'p_form' : p_form
+        'user_form' : user_form,
+        'profile_form' : profile_form,
+        'password_form' : password_form
     }
     return render(request, 'users/user_settings.html', context)
 

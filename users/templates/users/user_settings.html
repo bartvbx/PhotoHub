@@ -12,12 +12,21 @@
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div>
-                    {{ u_form|crispy }}
-                    {{ p_form|crispy }}
+                    {{ user_form|crispy }}
+                    {{ profile_form|crispy }}
                 </div>
                 <button type="submit">Update</button>
             </form>
             <a href="{% url 'delete_profile_picture' %}">Set default</a>
+        </div>
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <div>
+                    {{ password_form|crispy }}
+                </div>
+                <button type="submit">Change password</button>
+            </form>
         </div>
     </div>
 {% endblock content %}
