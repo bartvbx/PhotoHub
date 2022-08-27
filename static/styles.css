@@ -15,7 +15,7 @@ body {
     background-image: linear-gradient(to left top, #ffffff, #fbfbfb, #f7f7f7, #f4f4f4, #f0f0f0, #eeeeee, #ebecec, #e9eae9, #e8e9e9, #e7e8e8, #e6e6e6, #e5e5e5);
 }
 
-#main-photo-list {
+#main-photo-list, #main-user-list {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -24,7 +24,7 @@ body {
     align-content: flex-start;
 }
 
-.main-photo {
+.main-photo, .main-user {
     width: 60%;
     background: rgba(76, 76, 76, 0.24);
     border-radius: 16px;
@@ -39,10 +39,10 @@ body {
     font-weight: 600;
 }
 
-.main-photo-details {
+.main-photo-details, .main-user-details {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     align-items: center;
     align-content: center;
@@ -56,28 +56,37 @@ body {
     border-bottom: 1px solid rgb(168, 168, 168);
 }
 
-.main-photo-img, .main-photo-details-left {
+.main-photo-img, .main-photo-details-left, .main-user-details-left {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     align-content: center;
 }
 
-.main-photo-details-right {
+.main-photo-details-right, .main-user-details-right {
     text-align: center;
 }
 
-.main-photo-details a {
-    display: block;
+.main-photo-details a, .main-user-details a {
     color: black;
 }
 
-.main-photo-details-profilepic {
+.main-user-details-info, .main-photo-details-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.main-photo-details-profilepic, .main-user-details-profilepic {
     height: 100px;
     width: 100px;
     margin: 0.5rem;
+    margin-right: 1rem;
     border-radius: 50%;
 }
 
@@ -108,7 +117,7 @@ body {
     background-color: #4b525a;
 }
 
-.photo-search {
+.photo-search, .user-search {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -120,7 +129,7 @@ body {
     margin-bottom: 1rem;
 }
 
-.photo-search-form {
+.photo-search-form, .user-search-form {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -129,7 +138,7 @@ body {
     align-content: flex-start;
 }
 
-.photo-search-form-input {
+.photo-search-form-input, .user-search-form-input {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
     height: 31px;
@@ -140,6 +149,11 @@ select.photo-search-form-input {
 }
 
 .btn-dark {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.btn-outline-dark {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
 }

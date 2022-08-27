@@ -17,7 +17,7 @@
                 <div class="main-photo-details">
                     <div class="main-photo-details-left">
                         <img class="main-photo-details-profilepic" src="{{ object.author.profile.image.url }}">
-                        <div>
+                        <div class="main-photo-details-info">
                             <a class="main-photo-details-title" href="{% url 'photo_detail' object.id %}">{{ object.title }}</a>
                             <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a>
                             <small>{{ object.created|date:"F d, Y" }}</small>

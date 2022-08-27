@@ -1,36 +1,64 @@
 {% extends 'base.html' %}
-
+{% load user_extras %}
 {% block content %}
-    <div>
-        <form method='GET'>
-            <input type='text' name='q' value='{{ request.GET.q }}'>
-            <input class="button" type='submit' value="Search Users">
+    <div class="user-search">
+        <form class="user-search-form" method="GET">
+            <input class="user-search-form-input" type="text" name="q" value="{{ request.GET.q }}">
+            <input class="btn btn-dark btn-sm" type="submit" value="Search Users">        
+            <a class="btn btn-dark btn-sm" href="{% url 'user_list' %}">Clear filter</a>
         </form>
-        <a class="btn btn-warning" href="{% url 'user_list' %}">Clear filter</a>
     </div>
-    {% for object in object_list %}
-        <div>
-            <div>
-                <img src="{{ object.profile.image.url }}">
-                <a href="{% url 'user_details' object.pk %}">{{ object.username }}</a>
-            </div>
-        </div>
-    {% endfor %}
-    {% if is_paginated %}
-        {% if page_obj.has_previous %}
-            <a href="?page=1">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <a href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num > page_obj.number|add:'-3' %}
-                <a href="?page={{ num }}">{{ num }}</a>
-            {% endif %}
+    <div id="main-user-list">
+        {% for object in object_list %}
+            <article class="main-user">
+                <div class="main-user-details">
+                    <div class="main-user-details-left">
+                        <a href="{% url 'user_details' object.pk %}"><img class="main-user-details-profilepic" src="{{ object.profile.image.url }}"></a>
+                        <div class="main-user-details-info">
+                            <a href="{% url 'user_details' object.pk %}">{{ object.username }}</a>
+                            <span class="mb-0">{{ object.profile.count_photos }} photo(s)</span>
+                            <span class="mb-0">{{object.profile.bio}}</span>
+                        </div>
+                    </div>
+                    <div class="main-user-details-right">
+                        {% if object.id != user.id %}
+                            {% user_followed_by_user object.id user.id as followed %}
+                            {% if followed %}
+                                <form action="{% url 'user_follow' object.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-dark btn-sm" type="submit" name="user_id" value="{{ object.id }}">Unfollow</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'user_follow' object.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-dark btn-sm" type="submit" name="user_id" value="{{ object.id }}">Follow</button>
+                                </form>
+                            {% endif %}
+                        {% else %}
+                            <a class="btn btn-outline-dark btn-sm" href="{% url 'user_details' object.pk %}">{{ object.username }}</a> 
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
         {% endfor %}
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+    </div>
+    <div class="paginator">
+        {% if is_paginated %}
+            {% if page_obj.has_previous %}
+                <a href="?page=1">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num > page_obj.number|add:'-3' %}
+                    <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            {% endif %}
         {% endif %}
-    {% endif %}
+    </div>
 {% endblock content %}
