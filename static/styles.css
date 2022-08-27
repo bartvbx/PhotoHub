@@ -11,6 +11,10 @@ footer a:hover {
     color: white;
 }
 
+body {
+    background-image: linear-gradient(to left top, #ffffff, #fbfbfb, #f7f7f7, #f4f4f4, #f0f0f0, #eeeeee, #ebecec, #e9eae9, #e8e9e9, #e7e8e8, #e6e6e6, #e5e5e5);
+}
+
 #main-photo-list {
     display: flex;
     flex-direction: row;
@@ -22,6 +26,13 @@ footer a:hover {
 
 .main-photo {
     width: 60%;
+    background: rgba(76, 76, 76, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 76, 76, 0.33);
+    margin-bottom: 2rem;
 }
 
 .main-photo-details-title {
@@ -35,11 +46,14 @@ footer a:hover {
     justify-content: space-between;
     align-items: center;
     align-content: center;
+    padding: 1rem 2rem;
 }
 
 .main-photo-img {
-    margin-top: 1rem;
     margin-bottom: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgb(168, 168, 168);
 }
 
 .main-photo-img, .main-photo-details-left {
@@ -103,6 +117,7 @@ footer a:hover {
     align-content: flex-start;
     margin: 0.5rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .photo-search-form {
