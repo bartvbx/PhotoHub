@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <h3>You have been successfully logged out</h3>
-    <div>
-        <a href="{% url 'login' %}">Log In Again</a>
+    <div class="main-info">
+        <div class="main-info-content">
+            <h5>You have been successfully logged out!</h5>
+            <div class="main-form-button">
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'login' %}">Log In Again</a>
+            </div>
+        </div>
     </div>
 {% endblock content %}
