@@ -45,6 +45,12 @@
                 {{ comment.created }} commented by {{ comment.author }}
                 <br>
                 {{ comment.content }}
+                {% if comment.author == user %}
+                    <div>
+                        <a class="btn btn-outline-dark btn-sm" href="{% url 'comment_update' comment.id %}">Update comment</a>
+                        <a class="btn btn-outline-danger btn-sm" href="{% url 'comment_delete' comment.id %}">Delete</a>
+                    </div>
+                {% endif %}
                 <br>
             {% empty %}
                 There are no comments yet, add the first one!

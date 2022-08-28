@@ -1,6 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -15,9 +15,10 @@ from django.views.generic import (
     FormView
 )
 from django.views.generic.detail import SingleObjectMixin
+
 from .filters import PhotoFilter
 from .forms import CommentForm
-from .models import Photo, Category
+from .models import Photo, Category, Comment
 
 
 class PhotoListView(ListView):
@@ -48,7 +49,7 @@ class PhotoDisplay(DetailView):
         return context
 
 
-class PhotoComment(SingleObjectMixin, SuccessMessageMixin, FormView):
+class PhotoComment(LoginRequiredMixin, SingleObjectMixin, SuccessMessageMixin, FormView):
     template_name = 'photos/photo_detail.html'
     form_class = CommentForm
     model = Photo
@@ -68,6 +69,41 @@ class PhotoComment(SingleObjectMixin, SuccessMessageMixin, FormView):
 
     def get_success_url(self):
         return reverse('photo_detail', kwargs={'pk': self.object.pk})
+
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    model = Comment
+    fields = ['content']
+    success_message = "Your comment was updated successfully!"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.author:
+            return True
+        return False
+    
+    def get_success_url(self):
+        comment = self.get_object()
+        return reverse('photo_detail', kwargs={"pk": comment.photo.pk})
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
+    model = Comment
+    success_message = "Your comment was deleted successfully!"
+
+    def test_func(self):
+        comment = self.get_object()
+        if self.request.user == comment.author:
+            return True
+        return False
+    
+    def get_success_url(self):
+        comment = self.get_object()
+        return reverse('photo_detail', kwargs={"pk": comment.photo.pk})
 
 
 class PhotoDetailView(View):

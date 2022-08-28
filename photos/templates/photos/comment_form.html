@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="main-form">
+        <form class="main-form-details" method="POST">
+            {% csrf_token %}
+            <div>
+                {{ form|crispy }}
+            </div>
+            <div class="main-form-button">
+                <button class="btn btn-outline-dark btn-sm" type="submit">Save</button>
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_detail' object.photo.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
