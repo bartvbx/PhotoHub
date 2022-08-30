@@ -155,17 +155,19 @@ class PhotoDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMix
         return False
 
 
-@login_required
 def like_photo(request, pk):
     photo = get_object_or_404(Photo, id=request.POST.get('photo_id'))
-    if request.user == photo.author:
-        messages.warning(request, f'You can\'t like your own photo!')
-    elif photo.likes.filter(id=request.user.id).exists():
-        photo.likes.remove(request.user)
-        messages.success(request, f'You disliked photo "{photo.title}" by {photo.author}!')
+    if request.user.is_authenticated:
+        if request.user == photo.author:
+            messages.warning(request, f'You can\'t like your own photo!')
+        elif photo.likes.filter(id=request.user.id).exists():
+            photo.likes.remove(request.user)
+            messages.success(request, f'You disliked photo "{photo.title}" by {photo.author}!')
+        else:
+            photo.likes.add(request.user)
+            messages.success(request, f'You liked photo "{photo.title}" by {photo.author}!')
     else:
-        photo.likes.add(request.user)
-        messages.success(request, f'You liked photo "{photo.title}" by {photo.author}!')
+        messages.error(request, f'You need to be logged in to like photos!', extra_tags='danger')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 from photos.models import Photo
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from users.forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 
 def register(request):
@@ -88,15 +88,17 @@ class UserDetalView(DetailView):
         return context
 
 
-@login_required
 def follow_user(request, pk):
     user = get_object_or_404(User, id=request.POST.get('user_id'))
-    if request.user == user:
-        messages.warning(request, f'You can\'t follow yourself!')
-    elif user.profile.follows.filter(id=request.user.id).exists():
-        user.profile.follows.remove(request.user.profile)
-        messages.success(request, f'You are no longer following {user}!')
+    if request.user.is_authenticated:
+        if request.user == user:
+            messages.warning(request, f'You can\'t follow yourself!')
+        elif user.profile.follows.filter(id=request.user.id).exists():
+            user.profile.follows.remove(request.user.profile)
+            messages.success(request, f'You are no longer following {user}!')
+        else:
+            user.profile.follows.add(request.user.profile)
+            messages.success(request, f'You are following {user}!')
     else:
-        user.profile.follows.add(request.user.profile)
-        messages.success(request, f'You are following {user}!')
+        messages.error(request, f'You need to be logged in to follow users!', extra_tags='danger')   
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
