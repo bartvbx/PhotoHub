@@ -132,6 +132,75 @@ body {
     border-radius: 50%;
 }
 
+.main-user-settings {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.main-user-settings-content {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    word-break: break-word;
+    text-align: justify;
+    text-justify: inter-word;
+    background: rgba(76, 76, 76, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 76, 76, 0.33);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.main-user-settings-form {
+    width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    word-break: break-word;
+    background: rgba(76, 76, 76, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 76, 76, 0.33);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.main-user-settings-profilepic {
+    height: 300px;
+    width: 300px;
+    margin: 0.5rem;
+    margin-right: 1rem;
+    border-radius: 50%;
+}
+
+.main-user-settings-form small {
+    color: #6c757d;
+    display: inline-block;
+    padding-bottom: 1rem;
+}
+
 .fixed-height {
     min-height: calc(100vh - 40px);
 }

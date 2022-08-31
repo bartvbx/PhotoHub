@@ -1,31 +1,41 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div>
-        <div>
-            <img src="{{ user.profile.image.url }}">
+    <div class="main-user-settings">
+        <div class="main-user-settings-content">
+            <img class="main-user-settings-profilepic" src="{{ user.profile.image.url }}">
             <h3>{{ user.username }}</h3>
-            <h3>{{ user.email }}</h3>
-            <h3>{{ user.profile.bio }}</h3>
+            <h5>{{ user.email }}</h5>
+            {{ user.profile.bio }}
         </div>
-        <div>
+        <div class="main-user-settings-form">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
+                <h5>Edit profile</h5>
                 <div>
                     {{ user_form|crispy }}
                     {{ profile_form|crispy }}
                 </div>
-                <button type="submit">Update</button>
-            </form>
-            <a href="{% url 'delete_profile_picture' %}">Set default</a>
+                <small>
+                    Consider that your profile picture will be resized to the width/height of 300px. 
+                    For the best profile appearance, we recommend uploading a square-shaped photo.
+                </small>
+                <div class="main-form-button">
+                    <button class="btn btn-outline-dark btn-sm" type="submit">Update</button>
+                    <a class="btn btn-outline-dark btn-sm" href="{% url 'delete_profile_picture' %}">Set default profile image</a>
+                </div>
+            </form>  
         </div>
-        <div>
+        <div class="main-user-settings-form">
             <form method="POST">
                 {% csrf_token %}
+                <h5>Change password</h5>
                 <div>
                     {{ password_form|crispy }}
                 </div>
-                <button type="submit">Change password</button>
+                <div class="main-form-button">
+                    <button class="btn btn-outline-dark btn-sm" type="submit">Change password</button>
+                </div>
             </form>
         </div>
     </div>
