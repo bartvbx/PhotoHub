@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <div>
-        <form method="POST">
+    <div class="main-form">
+        <form class="main-form-details" method="POST">
             {% csrf_token %}
             <div>
-                <h3>Are you sure you want to delet photo {{ object.title }}</h3>
+                <h4>Are you sure you want to delete photo "{{ object.title }}"?</h4>
             </div>
-            <button type="submit">Delete</button>
-            <a href="{% url 'photo_detail' object.id %}">Cancel</a>
+            <div class="main-form-button">
+                <button class="btn btn-outline-dark btn-sm" type="submit">Delete</button>
+                <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_detail' object.id %}">Cancel</a>
+            </div>
         </form>
     </div>
 {% endblock content %}

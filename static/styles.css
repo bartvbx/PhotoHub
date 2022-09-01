@@ -81,7 +81,7 @@ body {
     font-weight: 600;
 }
 
-.main-photo-details, .main-user-details {
+.main-photo-details, .main-user-details, .photo-details {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -91,14 +91,34 @@ body {
     padding: 1rem 2rem;
 }
 
-.main-photo-img {
+.photo-description {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.comment-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.main-photo-img, .photo-img {
     margin-bottom: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid rgb(168, 168, 168);
 }
 
-.main-photo-img, .main-photo-details-left, .main-user-details-left {
+.main-photo-img, .main-photo-details-left, .main-user-details-left, .comment-details-left, .photo-details-left, .photo-img {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -107,15 +127,20 @@ body {
     align-content: center;
 }
 
-.main-photo-details-right, .main-user-details-right {
-    text-align: center;
+.comment-details-left {
+    display: block;
 }
 
-.main-photo-details a, .main-user-details a {
+.main-photo-details-right, .main-user-details-right, .comment-details-right, .photo-details-right {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.main-photo-details a, .main-user-details a, .photo-details a {
     color: black;
 }
 
-.main-user-details-info, .main-photo-details-info {
+.main-user-details-info, .main-photo-details-info, .photo-details-info {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -124,7 +149,7 @@ body {
     align-content: flex-start;
 }
 
-.main-photo-details-profilepic, .main-user-details-profilepic {
+.main-photo-details-profilepic, .main-user-details-profilepic, .photo-detail-profilepic {
     height: 100px;
     width: 100px;
     margin: 0.5rem;
@@ -199,6 +224,67 @@ body {
     color: #6c757d;
     display: inline-block;
     padding-bottom: 1rem;
+}
+
+.photo-view {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+.photo {
+    width: 60%;
+    word-break: break-word;
+    text-align: justify;
+    text-justify: inter-word;
+    background: rgba(76, 76, 76, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 76, 76, 0.33);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+}
+
+.comments {
+    width: 60%;
+    word-break: break-word;
+    text-align: justify;
+    text-justify: inter-word;
+    background: rgba(76, 76, 76, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(76, 76, 76, 0.33);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.comment-inline {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.photo-details-inline {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.photo-details-inline.h2 {
+    display: inline;
 }
 
 .fixed-height {

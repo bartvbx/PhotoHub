@@ -2,64 +2,81 @@
 {% load photo_extras %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div>
-        <div>
-            <img src="{{ object.author.profile.image.url }}">
-            <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a>
-            <small>{{ object.created|date:"F d, Y" }}</small>
-        </div>
-        {% if object.author == user %}
-            <div>
-                <a href="{% url 'photo_update' object.id %}">Update</a>
-                <a href="{% url 'photo_delete' object.id %}">Delete</a>
-            </div>
-        {% endif %}
-        <div>
-            <h2>{{ object.title }}</h2>
-            {{ object.category }}
-            {{ object.description }}
-            <br>
-            <img src="{{ object.image.url }}">
-        </div>
-        <div>
-            {{ object.total_likes }} likes
-            {% photo_liked_by_user object.id user.id as is_liked %}
-            <br>
-            {% if is_liked %}
-            <form action="{% url 'photo_like' object.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" name="photo_id" value="{{ object.id }}">Dislike</button>
-            </form>
-            {% else %}
-            <form action="{% url 'photo_like' object.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" name="photo_id" value="{{ object.id }}">Like</button>
-            </form>
-            {% endif %}
-        </div>
-        <hr>
-        <div>
-            Comments:
-            <br>
-            {% for comment in object.comment_set.all %}
-                {{ comment.created }} commented by {{ comment.author }}
-                <br>
-                {{ comment.content }}
-                {% if comment.author == user %}
-                    <div>
-                        <a class="btn btn-outline-dark btn-sm" href="{% url 'comment_update' comment.id %}">Update comment</a>
-                        <a class="btn btn-outline-danger btn-sm" href="{% url 'comment_delete' comment.id %}">Delete</a>
+    <div class="photo-view">
+        <div class="photo">
+            <div class="photo-details">
+                <div class="photo-details-left">
+                    <div class="photo-details-info">
+                        <div class="photo-details-inline">
+                            <h2>{{ object.title }}</h2>
+                            {% if object.author == user %}
+                                <a class="btn btn-outline-dark btn-sm" href="{% url 'photo_update' object.id %}">Update</a>
+                                <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_delete' object.id %}">Delete</a>
+                            {% endif %}
+                        </div>
+                        <small>Posted: {{ object.created|date:"F d, Y" }}</small>
+                        <small>Category: {{ object.category }}</small>
+                        <small>By: <a href="{% url 'user_details' object.author.id %}">{{ object.author }}</a></small>
                     </div>
-                {% endif %}
-                <br>
+                </div>
+                <div class="photo-details-right">
+                    {% photo_liked_by_user object.id user.id as is_liked %}
+                    {% if is_liked %}
+                    <form action="{% url 'photo_like' object.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="photo_id" value="{{ object.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    {% else %}
+                    <form action="{% url 'photo_like' object.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="photo_id" value="{{ object.id }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    {% endif %}
+                    <p>{{ object.total_likes }} likes</p>
+                </div>
+            </div>
+            <div class="photo-description">
+                {{ object.description }}
+            </div>
+            <div class="photo-img">
+                <img class="img-fluid" src="{{ object.image.url }}">
+            </div>
+        </div>
+        <div class="comments">
+            <h5>Comments:</h5>
+                {% for comment in object.comment_set.all %}
+                <div class="comment-details">
+                    <div class="comment-details-left">
+                        <p>{{ comment.created }} commented by {{ comment.author }}</p>
+                        <p>{{ comment.content }}</p>
+                    </div>
+                    <div class="comment-details-right">
+                        {% if comment.author == user %}
+                            <div>
+                                <a class="btn btn-outline-dark btn-sm" href="{% url 'comment_update' comment.id %}">Update comment</a>
+                                <a class="btn btn-outline-danger btn-sm" href="{% url 'comment_delete' comment.id %}">Delete</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <hr>
             {% empty %}
                 There are no comments yet, add the first one!
             {% endfor %}
             <div>
+            <h5>Add your comment here:</h5>
                 <form method="POST">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button type="submit">Submit</button>
+                    <button class="btn btn-outline-dark btn-sm" type="submit">Submit</button>
                 </form>
             </div>
         </div>
