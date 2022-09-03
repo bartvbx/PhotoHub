@@ -136,7 +136,7 @@ body {
     white-space: nowrap;
 }
 
-.main-photo-details a, .main-user-details a, .photo-details a {
+.main-photo-details a, .main-user-details a, .photo-details a, .modal-content a {
     color: black;
 }
 
@@ -157,7 +157,7 @@ body {
     border-radius: 50%;
 }
 
-.main-user-settings {
+.main-user-settings, .user-details {
     width: 60%;
     margin: auto;
     display: flex;
@@ -168,8 +168,8 @@ body {
     align-content: center;
 }
 
-.main-user-settings-content {
-    width: 60%;
+.main-user-settings-content, .user-details-info, .user-details-photos {
+    /* width: 60%; */
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -192,7 +192,7 @@ body {
 }
 
 .main-user-settings-form {
-    width: 60%;
+    /* width: 60%; */
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -212,7 +212,7 @@ body {
     padding: 2rem;
 }
 
-.main-user-settings-profilepic {
+.main-user-settings-profilepic, .user-details-profilepic {
     height: 300px;
     width: 300px;
     margin: 0.5rem;
@@ -224,6 +224,15 @@ body {
     color: #6c757d;
     display: inline-block;
     padding-bottom: 1rem;
+}
+
+.user-details-inline {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
 }
 
 .photo-view {
@@ -353,4 +362,35 @@ select.photo-search-form-input {
 .btn-outline-dark {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
+}
+
+.user-details-photos.row {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.col-sm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.img-thumbnail{
+    max-height: 300px;
+}
+
+.container {
+    padding-top: 2rem;
+}
+
+.col-md-4 {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }

@@ -2,51 +2,94 @@
 {% load user_extras %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div>
-        <div>
-            <img src="{{ object.profile.image.url }}">
-            <div>{{ object.username }}</div>
-            <div>{{ object.profile.bio }}</div>
-        </div>
-        <div>
-            {{ object.profile.count_followers }} follower(s)
-            {{ object.profile.count_following }} following
-            {{ object.profile.count_photos }} photo(s) uploaded
-            <div>
-                Followers list:
-                {% for follower in  object.profile.follows.all %}
-                    <a href="{% url 'user_details' follower.pk %}">{{follower.user}}</a>
-                {% endfor %}
-            </div>
-            <div>
-                Following list:
-                {% for followed in  object.profile.followers.all %}
-                    <a href="{% url 'user_details' followed.pk %}">{{followed.user}}</a>
-                {% endfor %}
-            </div>
-            {% if object.id != user.id %}
-                {% user_followed_by_user object.id user.id as followed %}
-                <br>
-                {% if followed %}
-                <form action="{% url 'user_follow' object.id %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" name="user_id" value="{{ object.id }}">Unfollow</button>
-                </form>
-                {% else %}
-                <form action="{% url 'user_follow' object.id %}" method="POST">
-                    {% csrf_token %}
-                    <button type="submit" name="user_id" value="{{ object.id }}">Follow</button>
-                </form>
+    <div class="user-details">
+        <div class="user-details-info">
+            <img class="user-details-profilepic" src="{{ object.profile.image.url }}">
+            <h3>{{ object.username }}</h3>
+            <h5>{{ object.profile.count_photos }} photo(s) uploaded</h5>
+            <div class="user-details-inline">
+                {% if object.id != user.id %}
+                    {% user_followed_by_user object.id user.id as followed %}
+                    {% if followed %}
+                        <form action="{% url 'user_follow' object.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-dark btn-sm" type="submit" name="user_id" value="{{ object.id }}">Unfollow</button>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'user_follow' object.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn btn-outline-dark btn-sm" type="submit" name="user_id" value="{{ object.id }}">Follow</button>
+                        </form>
+                    {% endif %}
                 {% endif %}
+                <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#followersModal">
+                    {{ object.profile.count_followers }} follower(s)
+                </button>
+                <button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#followingModal">
+                    {{ object.profile.count_following }} following
+                </button>
+            </div>
+            {{ object.profile.bio }}
+        </div>
+        <div class="user-details-photos">
+            {% if photo_list.count == 0%}
+                <h5>{{ object.username }} hasn't uploaded any photos yet</h5>
+            {% else %}
+            <h5>Last photo(s) uploaded by {{ object.username }}</h5>
+            <div class="row">
+                {% for photo in photo_list %}
+                    <div class="col-sm">
+                        <a href="{% url 'photo_detail' photo.id %}"><img class="img-thumbnail" src="{{ photo.image.url }}"></a>
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="btn btn-outline-dark btn-sm" href="{% url 'photo_list' %}?author={{object.pk}}">Display all {{object.username }} photos</a>
             {% endif %}
         </div>
-        <div>
-            {% for photo in photo_list %}
-                {{photo.title}}
-                <img src="{{ photo.image.url }}">
-                <br>
-            {% endfor %}
-            <a href="{% url 'photo_list' %}?author={{object.pk}}">Display all {{object.username }} photos</a>
+    </div>
+    <!-- Modals -->
+    <div class="modal fade" id="followersModal" tabindex="-1" aria-labelledby="followersModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="followersModalLabel">Followers</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for follower in  object.profile.follows.all %}
+                        <a href="{% url 'user_details' follower.pk %}">
+                            <img class="photo-detail-profilepic" src="{{ follower.user.profile.image.url }}">
+                        </a>
+                        <a href="{% url 'user_details' follower.pk %}">{{follower.user}}</a>
+                        <hr>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="followingModal" tabindex="-1" aria-labelledby="followingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="followingModalLabel">Following</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% for followed in  object.profile.followers.all %}
+                        <a href="{% url 'user_details' followed.pk %}">
+                            <img class="photo-detail-profilepic" src="{{ followed.user.profile.image.url }}">
+                        </a>
+                        <a href="{% url 'user_details' followed.pk %}">{{followed.user}}</a>
+                        <hr>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
