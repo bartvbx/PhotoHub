@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block title %}PhotoHub - Photo{% endblock title %}
 {% block content %}
     <div class="main-form">
         <form class="main-form-details" method="POST">
@@ -9,7 +10,11 @@
             </div>
             <div class="main-form-button">
                 <button class="btn btn-outline-dark btn-sm" type="submit">Save</button>
-                <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_detail' object.id %}">Cancel</a>
+                {% if object.id %}
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_detail' object.id %}">Cancel</a>
+                {% else %}
+                    <a class="btn btn-outline-danger btn-sm" href="{% url 'photo_list' %}">Cancel</a>
+                {% endif %}
             </div>
         </form>
     </div>

@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load user_extras %}
+{% block title %}PhotoHub - Users{% endblock title %}
 {% block content %}
     <div class="user-search">
         <form class="user-search-form" method="GET">
-            <input class="user-search-form-input" type="text" name="q" value="{{ request.GET.q }}">
+            <input class="user-search-form-input" type="text" placeholder="Search by username" name="q" value="{{ request.GET.q }}">
             <input class="btn btn-dark btn-sm" type="submit" value="Search Users">        
             <a class="btn btn-dark btn-sm" href="{% url 'user_list' %}">Clear filter</a>
         </form>
@@ -15,7 +16,7 @@
                     <div class="main-user-details-left">
                         <a href="{% url 'user_details' object.pk %}"><img class="main-user-details-profilepic" src="{{ object.profile.image.url }}"></a>
                         <div class="main-user-details-info">
-                            <a href="{% url 'user_details' object.pk %}">{{ object.username }}</a>
+                            <a class="main-user-details-username" href="{% url 'user_details' object.pk %}">{{ object.username }}</a>
                             <span class="mb-0">{{ object.profile.count_photos }} photo(s)</span>
                             <span class="mb-0">{{object.profile.bio}}</span>
                         </div>

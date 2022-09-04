@@ -77,7 +77,7 @@ body {
     margin-bottom: 2rem;
 }
 
-.main-photo-details-title {
+.main-photo-details-title, .main-user-details-username {
     font-weight: 600;
 }
 
@@ -298,6 +298,7 @@ body {
 
 .fixed-height {
     min-height: calc(100vh - 40px);
+    padding-top: 60px;
 }
 
 .img-fluid {

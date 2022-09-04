@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load user_extras %}
 {% load crispy_forms_tags %}
+{% block title %}PhotoHub - {{ object.username }} profile{% endblock title %}
 {% block content %}
     <div class="user-details">
         <div class="user-details-info">
@@ -35,15 +36,15 @@
             {% if photo_list.count == 0%}
                 <h5>{{ object.username }} hasn't uploaded any photos yet</h5>
             {% else %}
-            <h5>Last photo(s) uploaded by {{ object.username }}</h5>
-            <div class="row">
-                {% for photo in photo_list %}
-                    <div class="col-sm">
-                        <a href="{% url 'photo_detail' photo.id %}"><img class="img-thumbnail" src="{{ photo.image.url }}"></a>
-                    </div>
-                {% endfor %}
-            </div>
-            <a class="btn btn-outline-dark btn-sm" href="{% url 'photo_list' %}?author={{object.pk}}">Display all {{object.username }} photos</a>
+                <h5>Last photo(s) uploaded by {{ object.username }}</h5>
+                <div class="row">
+                    {% for photo in photo_list %}
+                        <div class="col-sm">
+                            <a href="{% url 'photo_detail' photo.id %}"><img class="img-thumbnail" src="{{ photo.image.url }}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="btn btn-outline-dark btn-sm" href="{% url 'photo_list' %}?author={{object.pk}}">Display all {{object.username }} photos</a>
             {% endif %}
         </div>
     </div>

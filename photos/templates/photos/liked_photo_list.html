@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load photo_extras %}
+{% block title %}PhotoHub - Liked photos{% endblock title %}
 {% block content %}
     {% if object_list|length < 1 %}
     <div class="main-info">
