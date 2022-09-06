@@ -87,8 +87,12 @@ WSGI_APPLICATION = 'photohub.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": os.environ.get("PH_SQL_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": os.environ.get("PH_SQL_NAME", os.path.join(BASE_DIR, "db.sqlite3")),
+        "USER": os.environ.get("PH_SQL_USER", "user"),
+        "PASSWORD": os.environ.get("PH_SQL_PASSWORD", "password"),
+        "HOST": os.environ.get("PH_SQL_HOST", "localhost"),
+        "PORT": os.environ.get("PH_SQL_PORT", "5432"),
     }
 }
 
