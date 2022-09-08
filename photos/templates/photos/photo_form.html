@@ -3,7 +3,7 @@
 {% block title %}PhotoHub - Photo{% endblock title %}
 {% block content %}
     <div class="main-form">
-        <form class="main-form-details" method="POST">
+        <form class="main-form-details" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
                 {{ form|crispy }}
