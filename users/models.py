@@ -19,6 +19,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=400, blank=True)
     image = models.ImageField(default='default.jpg', upload_to=rename_profile_pic, validators=[file_size_validator])
     follows = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='followers')
+    summary_email = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.user.username} Profile'

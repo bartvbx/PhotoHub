@@ -4,6 +4,7 @@ from .models import Photo, Category
 from django.contrib.auth.models import User
 from django.forms.widgets import TextInput
 
+
 class PhotoFilter(django_filters.FilterSet):
     category = django_filters.ModelChoiceFilter(queryset=Category.objects.all(), method='category_filter', empty_label="All categories")
     author = django_filters.ModelChoiceFilter(queryset=User.objects.all(), method='author_filter', empty_label="All users")

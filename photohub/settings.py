@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -152,3 +154,14 @@ LOGIN_REDIRECT_URL = 'photo_list'
 LOGIN_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_IMPORTS = ("photohub.tasks")
+
+CELERY_BEAT_SCHEDULE = {
+    "send_daily_email": {
+        "task": "photohub.tasks.send_daily_email",
+        "schedule": crontab(minute=0, hour=23),
+    },
+}

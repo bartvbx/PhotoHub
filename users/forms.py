@@ -24,4 +24,8 @@ class ProfileUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['bio', 'image']
+        fields = ['bio', 'summary_email', 'image']
+        labels = {
+            'summary_email': ('Send me daily emails with an activity summary of users I follow.'),
+            'image': ('Profile picture'),
+        }
