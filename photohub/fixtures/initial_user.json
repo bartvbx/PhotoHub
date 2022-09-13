@@ -1,0 +1,110 @@
+[
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$I1QFRu4DEWbPIdOEBsFm72$8bqjXjnVnRx1Qh08retLKf6WNk9AB68iBwi8Eky8lCo=",
+        "last_login": "2022-09-12T20:52:48.679Z",
+        "is_superuser": false,
+        "username": "Devin",
+        "first_name": "",
+        "last_name": "",
+        "email": "devin@photohub.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-09-07T21:30:31.829Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$WNrxw4PIhGhqhqzB2KaXu3$ip65HbaA7W7Nc+gaaelZ1wL6yxl1zNVJ+tj2JKehY2U=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Daisy",
+        "first_name": "",
+        "last_name": "",
+        "email": "daisy@photohub.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-09-12T20:58:32.573Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$xxQqIbhmyzDmPbdnKdMbAa$M3R/0CXyR0DZC+7CZkyxej7fxjlPEmDBLkLtHDpom8U=",
+        "last_login": "2022-09-13T19:24:59.399Z",
+        "is_superuser": false,
+        "username": "Kendrick",
+        "first_name": "",
+        "last_name": "",
+        "email": "kendrick@photohub.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-09-12T21:00:34.172Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$G59ajqtRAyElSXowcI11xv$lC/RMCybbAnc7a0Aj96PcIb4F20kkxysJ2NDCMbrq+s=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Lana",
+        "first_name": "",
+        "last_name": "",
+        "email": "lana@photohub.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-09-12T21:02:35.611Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$5ZeOtukjv1QMeevPT8I5ZZ$tYEw2wj6QmeqYfUvjSKtgS5CBWKUJLNzuruXf2LqKnc=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "Leah",
+        "first_name": "",
+        "last_name": "",
+        "email": "leah@photohub.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-09-12T21:06:37.171Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$320000$a9ApuqaMNZYosP8QyzNuI9$0BV9Iurr5b+zsAMnvtLAYkNDpoSgHc+LSAk2/f8xqJs=",
+        "last_login": "2022-09-13T19:29:17.956Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@photohub.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2022-09-13T19:28:48.109Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

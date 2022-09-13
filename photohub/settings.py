@@ -88,13 +88,9 @@ WSGI_APPLICATION = 'photohub.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        "ENGINE": os.environ.get("PH_SQL_ENGINE", "django.db.backends.sqlite3"),
-        "NAME": os.environ.get("PH_SQL_NAME", os.path.join(BASE_DIR, "db.sqlite3")),
-        "USER": os.environ.get("PH_SQL_USER", "user"),
-        "PASSWORD": os.environ.get("PH_SQL_PASSWORD", "password"),
-        "HOST": os.environ.get("PH_SQL_HOST", "localhost"),
-        "PORT": os.environ.get("PH_SQL_PORT", "5432"),
+'default': {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
 
@@ -170,3 +166,7 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(minute=0, hour=23),
     },
 }
+
+FIXTURE_DIRS = (
+   os.path.join(BASE_DIR / 'photohub', 'fixtures'),
+)

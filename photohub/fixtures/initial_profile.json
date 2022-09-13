@@ -1,0 +1,81 @@
+[
+{
+    "model": "users.profile",
+    "pk": 2,
+    "fields": {
+        "user": 2,
+        "bio": "Hi, I'm Devin!",
+        "image": "profile_pics/Devin.jpg",
+        "summary_email": false,
+        "follows": []
+    }
+},
+{
+    "model": "users.profile",
+    "pk": 3,
+    "fields": {
+        "user": 3,
+        "bio": "",
+        "image": "profile_pics/Daisy.jpg",
+        "summary_email": false,
+        "follows": [
+            2,
+            4
+        ]
+    }
+},
+{
+    "model": "users.profile",
+    "pk": 4,
+    "fields": {
+        "user": 4,
+        "bio": "Europe based travelling photographer",
+        "image": "profile_pics/Kendrick.jpg",
+        "summary_email": false,
+        "follows": [
+            2,
+            6
+        ]
+    }
+},
+{
+    "model": "users.profile",
+    "pk": 5,
+    "fields": {
+        "user": 5,
+        "bio": "Check my photos",
+        "image": "profile_pics/Lana.jpg",
+        "summary_email": false,
+        "follows": [
+            2
+        ]
+    }
+},
+{
+    "model": "users.profile",
+    "pk": 6,
+    "fields": {
+        "user": 6,
+        "bio": "Looking for models",
+        "image": "profile_pics/Leah.jpg",
+        "summary_email": false,
+        "follows": [
+            2,
+            3,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "users.profile",
+    "pk": 7,
+    "fields": {
+        "user": 7,
+        "bio": "",
+        "image": "default.jpg",
+        "summary_email": false,
+        "follows": []
+    }
+}
+]

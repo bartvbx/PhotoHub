@@ -1,0 +1,314 @@
+[
+{
+    "model": "photos.category",
+    "pk": 1,
+    "fields": {
+        "name": "Other"
+    }
+},
+{
+    "model": "photos.category",
+    "pk": 2,
+    "fields": {
+        "name": "Nature"
+    }
+},
+{
+    "model": "photos.category",
+    "pk": 3,
+    "fields": {
+        "name": "People"
+    }
+},
+{
+    "model": "photos.category",
+    "pk": 4,
+    "fields": {
+        "name": "Still Life"
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 3,
+    "fields": {
+        "image": "photos/hidden-in-porto.jpg",
+        "title": "Hidden in Porto",
+        "category": 1,
+        "description": "January 2022\r\n\r\n@cesarhfonseca",
+        "author": 4,
+        "created": "2022-09-12T22:05:35.605Z",
+        "slug": "hidden-in-porto",
+        "likes": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 5,
+    "fields": {
+        "image": "photos/by-the-sea.jpg",
+        "title": "By the sea",
+        "category": 3,
+        "description": "SONY, ILCE-7RM4A\r\n\r\n@a_n_smith",
+        "author": 5,
+        "created": "2022-09-13T18:06:11.681Z",
+        "slug": "by-the-sea",
+        "likes": [
+            3
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 6,
+    "fields": {
+        "image": "photos/flowers-editorial.jpg",
+        "title": "Flowers editorial",
+        "category": 2,
+        "description": "SONY, ILCE-7RM4A\r\n\r\n@a_n_smith",
+        "author": 5,
+        "created": "2022-09-13T18:07:47.275Z",
+        "slug": "flowers-editorial",
+        "likes": []
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 7,
+    "fields": {
+        "image": "photos/what-is-your-impression.jpg",
+        "title": "What is your impression",
+        "category": 1,
+        "description": "SONY, ILCE-7RM4A\r\n\r\n@a_n_smith",
+        "author": 5,
+        "created": "2022-09-13T18:10:09.475Z",
+        "slug": "what-is-your-impression",
+        "likes": [
+            2,
+            3,
+            4,
+            6
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 8,
+    "fields": {
+        "image": "photos/flying-over-the-paradise.jpg",
+        "title": "Flying over the paradise",
+        "category": 2,
+        "description": "DJI, FC7303 @nipez",
+        "author": 3,
+        "created": "2022-09-13T18:15:15.309Z",
+        "slug": "flying-over-the-paradise",
+        "likes": [
+            2,
+            6
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 9,
+    "fields": {
+        "image": "photos/lake.jpg",
+        "title": "Lake",
+        "category": 2,
+        "description": "Canon, EOS R5 \r\n\r\n@lukethornton",
+        "author": 2,
+        "created": "2022-09-13T18:17:30.684Z",
+        "slug": "lake",
+        "likes": [
+            4,
+            6
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 10,
+    "fields": {
+        "image": "photos/watch-the-light.jpg",
+        "title": "Watch the light",
+        "category": 4,
+        "description": "FUJIFILM, X-T3 @nipez",
+        "author": 3,
+        "created": "2022-09-13T18:19:56.564Z",
+        "slug": "watch-the-light",
+        "likes": [
+            6
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 11,
+    "fields": {
+        "image": "photos/sunrise.jpg",
+        "title": "Sunrise",
+        "category": 2,
+        "description": "SONY, ILCE-6500\r\n\r\n@lukethornton",
+        "author": 2,
+        "created": "2022-09-13T18:23:48.165Z",
+        "slug": "sunrise",
+        "likes": [
+            3
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 12,
+    "fields": {
+        "image": "photos/down-the-road.jpg",
+        "title": "Down the road",
+        "category": 2,
+        "description": "DJI, FC220\r\n\r\n@lukethornton",
+        "author": 2,
+        "created": "2022-09-13T18:25:26.885Z",
+        "slug": "down-the-road",
+        "likes": [
+            4
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 13,
+    "fields": {
+        "image": "photos/right-eye.jpg",
+        "title": "Right eye",
+        "category": 3,
+        "description": "NIKON CORPORATION, NIKON D5500\r\n\r\n@bacila_vlad",
+        "author": 6,
+        "created": "2022-09-13T18:30:56.170Z",
+        "slug": "right-eye",
+        "likes": [
+            2,
+            3,
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "photos.photo",
+    "pk": 14,
+    "fields": {
+        "image": "photos/observe.jpg",
+        "title": "Observe",
+        "category": 2,
+        "description": "NIKON CORPORATION, NIKON D5500\r\n\r\n@bacila_vlad",
+        "author": 6,
+        "created": "2022-09-13T18:32:05.286Z",
+        "slug": "observe",
+        "likes": [
+            4,
+            5
+        ]
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 1,
+    "fields": {
+        "photo": 14,
+        "author": 3,
+        "content": "Awesome photo!",
+        "created": "2022-09-13T19:10:17.559Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 2,
+    "fields": {
+        "photo": 14,
+        "author": 4,
+        "content": "Good job",
+        "created": "2022-09-13T19:10:45.683Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 3,
+    "fields": {
+        "photo": 14,
+        "author": 2,
+        "content": "Cool",
+        "created": "2022-09-13T19:10:45.684Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 4,
+    "fields": {
+        "photo": 13,
+        "author": 2,
+        "content": "Cool",
+        "created": "2022-09-13T19:11:36.860Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 5,
+    "fields": {
+        "photo": 9,
+        "author": 5,
+        "content": "Outstanding!",
+        "created": "2022-09-13T19:12:26.913Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 6,
+    "fields": {
+        "photo": 9,
+        "author": 6,
+        "content": "Beautiful",
+        "created": "2022-09-13T19:12:26.915Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 7,
+    "fields": {
+        "photo": 7,
+        "author": 2,
+        "content": "Hypnotizing",
+        "created": "2022-09-13T19:13:45.884Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 8,
+    "fields": {
+        "photo": 7,
+        "author": 4,
+        "content": "Unique",
+        "created": "2022-09-13T19:13:45.885Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 9,
+    "fields": {
+        "photo": 3,
+        "author": 2,
+        "content": "Can u share the location?",
+        "created": "2022-09-13T19:14:33.616Z"
+    }
+},
+{
+    "model": "photos.comment",
+    "pk": 10,
+    "fields": {
+        "photo": 8,
+        "author": 5,
+        "content": "Dream",
+        "created": "2022-09-13T19:15:07.343Z"
+    }
+}
+]
