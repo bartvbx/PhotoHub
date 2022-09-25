@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     'django_filters',
     'django_cleanup.apps.CleanupConfig',
+    'storages',
     # LOCAL_APPS
     'users.apps.UsersConfig',
     'photos.apps.PhotosConfig',
@@ -174,3 +175,13 @@ CELERY_BEAT_SCHEDULE = {
 FIXTURE_DIRS = (
    os.path.join(BASE_DIR / 'photohub', 'fixtures'),
 )
+
+AWS_ACCESS_KEY_ID = os.environ.get('PH_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('PH_AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('PH_AWS_STORAGE_BUCKET_NAME')
+
+AWS_S3_REGION_NAME = os.environ.get('PH_AWS_S3_REGION_NAME')
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
