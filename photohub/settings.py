@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 
 from celery.schedules import crontab
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('PH_DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('PH_DEBUG') == 'True')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['photohub-django']
 
 
 # Application definition
@@ -134,6 +135,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -161,8 +163,8 @@ EMAIL_HOST_USER = os.environ.get('PH_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('PH_EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = "redis://localhost:6379"
+CELERY_BROKER_URL = os.environ.get('PH_CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.environ.get('PH_CELERY_RESULT_BACKEND')
 CELERY_IMPORTS = ("photohub.tasks")
 
 CELERY_BEAT_SCHEDULE = {
@@ -185,3 +187,5 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 AWS_S3_FILE_OVERWRITE = False
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+django_heroku.settings(locals())
