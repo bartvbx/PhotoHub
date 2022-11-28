@@ -25,7 +25,8 @@ Users can also create their profiles and follow each other.
 
 ## Demo
 
-https://photohub-django.herokuapp.com/
+The demo version was previously available at Heroku.
+Unfortunately, as of November 28, 2022, Heroku's free tier is no longer available.
 
 ## Installation
 **Requirements:**
@@ -81,6 +82,7 @@ Backend:
 - PostgreSQL
 - Celery
 - Redis
+
 Frontend:
 - Bootstrap
 
