@@ -11,4 +11,5 @@ services:
 
 databases: # Render PostgreSQL database
   - name: postgresql-round-78537
+    plan: free
     ipAllowList: [] # only allow internal connections
