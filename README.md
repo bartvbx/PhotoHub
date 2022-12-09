@@ -25,8 +25,7 @@ Users can also create their profiles and follow each other.
 
 ## Demo
 
-The demo version was previously available at Heroku.
-Unfortunately, as of November 28, 2022, Heroku's free tier is no longer available.
+https://photohub-django.herokuapp.com/
 
 ## Installation
 **Requirements:**
